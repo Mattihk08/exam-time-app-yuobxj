@@ -1,11 +1,25 @@
-# Ignore generated files
-_expo/
-dist/
-web-build/
 
-# Ignore node modules
+# Dependencies
 node_modules/
+.expo/
+.expo-shared/
 
-# Ignore build artifacts
-*.bundle.js
-*.bundle.js.map
+# Build outputs
+dist/
+build/
+web-build/
+.next/
+
+# Backend
+backend/
+
+# Babel plugins
+babel-plugins/
+
+# Cache
+.cache/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

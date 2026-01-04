@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -50,17 +50,39 @@ export default function EditExamScreen() {
     setTime(examDate);
     setLocation(exam.location || '');
     setPressureMode(exam.pressure_mode);
-  }, [exam, router]);
+  }, [exam]); // Removed router from dependencies - only used in Alert callback
 
-  const handleModeSelect = (mode: PressureMode) => {
+  const handleModeSelect = useCallback((mode: PressureMode) => {
     if (!canUseMode(mode)) {
       router.push('/paywall');
       return;
     }
     setPressureMode(mode);
-  };
+  }, [canUseMode, router]);
 
-  const handleSave = async () => {
+  const saveExam = useCallback(async (examDateTime: Date) => {
+    try {
+      setSaving(true);
+      await updateExam(id, {
+        title: title.trim(),
+        subject: subject.trim() || undefined,
+        date_time: examDateTime.toISOString(),
+        location: location.trim() || undefined,
+        pressure_mode: pressureMode,
+      });
+
+      Alert.alert('Success', 'Exam updated successfully!', [
+        { text: 'OK', onPress: () => router.back() },
+      ]);
+    } catch (error) {
+      console.error('[EditExam] Error updating exam:', error);
+      Alert.alert('Error', 'Failed to update exam. Please try again.');
+    } finally {
+      setSaving(false);
+    }
+  }, [id, title, subject, location, pressureMode, updateExam, router]);
+
+  const handleSave = useCallback(async () => {
     if (!title.trim()) {
       Alert.alert('Error', 'Please enter an exam title');
       return;
@@ -85,29 +107,7 @@ export default function EditExamScreen() {
     }
 
     await saveExam(examDateTime);
-  };
-
-  const saveExam = async (examDateTime: Date) => {
-    try {
-      setSaving(true);
-      await updateExam(id, {
-        title: title.trim(),
-        subject: subject.trim() || undefined,
-        date_time: examDateTime.toISOString(),
-        location: location.trim() || undefined,
-        pressure_mode: pressureMode,
-      });
-
-      Alert.alert('Success', 'Exam updated successfully!', [
-        { text: 'OK', onPress: () => router.back() },
-      ]);
-    } catch (error) {
-      console.error('[EditExam] Error updating exam:', error);
-      Alert.alert('Error', 'Failed to update exam. Please try again.');
-    } finally {
-      setSaving(false);
-    }
-  };
+  }, [title, date, time, saveExam]);
 
   if (!exam) {
     return (

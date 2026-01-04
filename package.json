@@ -9,7 +9,9 @@
     "web": "EXPO_NO_TELEMETRY=1 expo start --web",
     "build:web": "expo export -p web && npx workbox generateSW workbox-config.js",
     "build:android": "expo prebuild -p android",
-    "lint": "eslint ."
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "lint:clear": "rm -rf node_modules/.cache && npm run lint"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -43,7 +45,6 @@
     "expo-secure-store": "^15.0.7",
     "expo-splash-screen": "^31.0.8",
     "expo-status-bar": "~3.0.7",
-    "expo-superwall": "^1.0.0",
     "expo-symbols": "^1.0.6",
     "expo-system-ui": "^6.0.7",
     "expo-web-browser": "^15.0.6",

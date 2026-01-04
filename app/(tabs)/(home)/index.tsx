@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -30,15 +30,16 @@ function HomeScreenContent() {
   const [refreshing, setRefreshing] = useState(false);
   const activeExams = getActiveExams();
 
-  useEffect(() => {
-    const checkOnboarding = async () => {
-      const completed = await AsyncStorage.getItem(ONBOARDING_KEY);
-      if (!completed) {
-        router.replace('/onboarding');
-      }
-    };
-    checkOnboarding();
+  const checkOnboarding = useCallback(async () => {
+    const completed = await AsyncStorage.getItem(ONBOARDING_KEY);
+    if (!completed) {
+      router.replace('/onboarding');
+    }
   }, [router]);
+
+  useEffect(() => {
+    checkOnboarding();
+  }, [checkOnboarding]);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -52,32 +53,32 @@ function HomeScreenContent() {
     }
   };
 
-  const handleAddExam = () => {
+  const handleAddExam = useCallback(() => {
     // Check if user can add more exams (free tier limit: 1 exam)
     if (!isPro && activeExams.length >= 1) {
       router.push('/paywall');
       return;
     }
     router.push('/add-exam');
-  };
+  }, [isPro, activeExams.length, router]);
 
-  const handleDeleteExam = async (id: string) => {
+  const handleDeleteExam = useCallback(async (id: string) => {
     try {
       await deleteExam(id);
     } catch (error) {
       console.error('[Home] Error deleting exam:', error);
       Alert.alert('Error', 'Failed to delete exam. Please try again.');
     }
-  };
+  }, [deleteExam]);
 
-  const handleArchiveExam = async (id: string) => {
+  const handleArchiveExam = useCallback(async (id: string) => {
     try {
       await archiveExam(id);
     } catch (error) {
       console.error('[Home] Error archiving exam:', error);
       Alert.alert('Error', 'Failed to archive exam. Please try again.');
     }
-  };
+  }, [archiveExam]);
 
   if (loading) {
     return (

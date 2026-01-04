@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -43,7 +43,61 @@ export default function ExamDetailScreen() {
     const interval = setInterval(updateCountdown, 1000); // Update every second for detail view
 
     return () => clearInterval(interval);
-  }, [exam, router]);
+  }, [exam]); // Removed router from dependencies - only used in Alert callback
+
+  const handleEdit = useCallback(() => {
+    router.push(`/edit-exam/${exam?.id}`);
+  }, [router, exam?.id]);
+
+  const handleArchive = useCallback(() => {
+    Alert.alert(
+      'Archive Exam',
+      'Are you sure you want to archive this exam?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Archive',
+          onPress: async () => {
+            try {
+              await archiveExam(exam!.id);
+              Alert.alert('Success', 'Exam archived', [
+                { text: 'OK', onPress: () => router.back() },
+              ]);
+            } catch (error) {
+              console.error('[ExamDetail] Error archiving exam:', error);
+              Alert.alert('Error', 'Failed to archive exam');
+            }
+          },
+          style: 'destructive',
+        },
+      ]
+    );
+  }, [archiveExam, exam, router]);
+
+  const handleDelete = useCallback(() => {
+    Alert.alert(
+      'Delete Exam',
+      'Are you sure you want to delete this exam? This cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          onPress: async () => {
+            try {
+              await deleteExam(exam!.id);
+              Alert.alert('Success', 'Exam deleted', [
+                { text: 'OK', onPress: () => router.back() },
+              ]);
+            } catch (error) {
+              console.error('[ExamDetail] Error deleting exam:', error);
+              Alert.alert('Error', 'Failed to delete exam');
+            }
+          },
+          style: 'destructive',
+        },
+      ]
+    );
+  }, [deleteExam, exam, router]);
 
   if (!exam) {
     return (
@@ -54,58 +108,6 @@ export default function ExamDetailScreen() {
       </View>
     );
   }
-
-  const handleEdit = () => {
-    router.push(`/edit-exam/${exam.id}`);
-  };
-
-  const handleArchive = () => {
-    Alert.alert(
-      'Archive Exam',
-      'Are you sure you want to archive this exam?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Archive',
-          onPress: async () => {
-            try {
-              await archiveExam(exam.id);
-              Alert.alert('Success', 'Exam archived', [
-                { text: 'OK', onPress: () => router.back() },
-              ]);
-            } catch (error) {
-              Alert.alert('Error', 'Failed to archive exam');
-            }
-          },
-          style: 'destructive',
-        },
-      ]
-    );
-  };
-
-  const handleDelete = () => {
-    Alert.alert(
-      'Delete Exam',
-      'Are you sure you want to delete this exam? This cannot be undone.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          onPress: async () => {
-            try {
-              await deleteExam(exam.id);
-              Alert.alert('Success', 'Exam deleted', [
-                { text: 'OK', onPress: () => router.back() },
-              ]);
-            } catch (error) {
-              Alert.alert('Error', 'Failed to delete exam');
-            }
-          },
-          style: 'destructive',
-        },
-      ]
-    );
-  };
 
   return (
     <>
