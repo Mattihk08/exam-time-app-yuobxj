@@ -2,7 +2,7 @@
 import "react-native-reanimated";
 import React, { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { Stack, router } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { SystemBars } from "react-native-edge-to-edge";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -15,7 +15,6 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { SuperwallProvider } from "expo-superwall";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Constants from "expo-constants";
 
@@ -75,65 +74,55 @@ export default function RootLayout() {
       <StatusBar style="light" animated />
       <ThemeProvider value={CustomDarkTheme}>
         <AuthProvider>
-          <SuperwallProvider
-            apiKeys={{
-              ios: "pk_d1e0c8e8e8e8e8e8e8e8e8e8e8e8e8e8",
-              android: "pk_d1e0c8e8e8e8e8e8e8e8e8e8e8e8e8e8",
-            }}
-            onConfigurationError={(error) => {
-              console.error("Superwall config error:", error);
-            }}
-          >
-            <GestureHandlerRootView>
-              <Stack screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="onboarding" />
-                <Stack.Screen name="auth" />
-                <Stack.Screen name="auth-popup" />
-                <Stack.Screen name="auth-callback" />
-                <Stack.Screen name="(tabs)" />
-                <Stack.Screen
-                  name="exam/[id]"
-                  options={{
-                    headerShown: true,
-                    title: "Exam Details",
-                    headerStyle: { backgroundColor: '#000000' },
-                    headerTintColor: '#FFFFFF',
-                  }}
-                />
-                <Stack.Screen
-                  name="add-exam"
-                  options={{
-                    presentation: "modal",
-                    headerShown: true,
-                    title: "Add Exam",
-                    headerStyle: { backgroundColor: '#000000' },
-                    headerTintColor: '#FFFFFF',
-                  }}
-                />
-                <Stack.Screen
-                  name="edit-exam/[id]"
-                  options={{
-                    presentation: "modal",
-                    headerShown: true,
-                    title: "Edit Exam",
-                    headerStyle: { backgroundColor: '#000000' },
-                    headerTintColor: '#FFFFFF',
-                  }}
-                />
-                <Stack.Screen
-                  name="paywall"
-                  options={{
-                    presentation: "modal",
-                    headerShown: true,
-                    title: "Upgrade to Pro",
-                    headerStyle: { backgroundColor: '#000000' },
-                    headerTintColor: '#FFFFFF',
-                  }}
-                />
-              </Stack>
-              <SystemBars style="light" />
-            </GestureHandlerRootView>
-          </SuperwallProvider>
+          <GestureHandlerRootView>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="onboarding" />
+              <Stack.Screen name="auth" />
+              <Stack.Screen name="auth-popup" />
+              <Stack.Screen name="auth-callback" />
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen
+                name="exam/[id]"
+                options={{
+                  headerShown: true,
+                  title: "Exam Details",
+                  headerStyle: { backgroundColor: '#000000' },
+                  headerTintColor: '#FFFFFF',
+                }}
+              />
+              <Stack.Screen
+                name="add-exam"
+                options={{
+                  presentation: "modal",
+                  headerShown: true,
+                  title: "Add Exam",
+                  headerStyle: { backgroundColor: '#000000' },
+                  headerTintColor: '#FFFFFF',
+                }}
+              />
+              <Stack.Screen
+                name="edit-exam/[id]"
+                options={{
+                  presentation: "modal",
+                  headerShown: true,
+                  title: "Edit Exam",
+                  headerStyle: { backgroundColor: '#000000' },
+                  headerTintColor: '#FFFFFF',
+                }}
+              />
+              <Stack.Screen
+                name="paywall"
+                options={{
+                  presentation: "modal",
+                  headerShown: true,
+                  title: "Upgrade to Pro",
+                  headerStyle: { backgroundColor: '#000000' },
+                  headerTintColor: '#FFFFFF',
+                }}
+              />
+            </Stack>
+            <SystemBars style="light" />
+          </GestureHandlerRootView>
         </AuthProvider>
       </ThemeProvider>
     </>

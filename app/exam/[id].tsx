@@ -43,7 +43,7 @@ export default function ExamDetailScreen() {
     const interval = setInterval(updateCountdown, 1000); // Update every second for detail view
 
     return () => clearInterval(interval);
-  }, [exam]); // Removed router from dependencies - only used in Alert callback
+  }, [exam, router]);
 
   const handleEdit = useCallback(() => {
     router.push(`/edit-exam/${exam?.id}`);

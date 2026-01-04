@@ -1,25 +1,9 @@
 
-# Dependencies
 node_modules/
 .expo/
 .expo-shared/
-
-# Build outputs
 dist/
 build/
-web-build/
-.next/
-
-# Backend
 backend/
-
-# Babel plugins
-babel-plugins/
-
-# Cache
-.cache/
 *.log
-
-# OS
-.DS_Store
-Thumbs.db
+.git/

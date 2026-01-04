@@ -50,7 +50,7 @@ export default function EditExamScreen() {
     setTime(examDate);
     setLocation(exam.location || '');
     setPressureMode(exam.pressure_mode);
-  }, [exam]); // Removed router from dependencies - only used in Alert callback
+  }, [exam, router]);
 
   const handleModeSelect = useCallback((mode: PressureMode) => {
     if (!canUseMode(mode)) {
