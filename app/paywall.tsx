@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { usePlacement } from 'expo-superwall';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { IconSymbol } from '@/components/IconSymbol';
 import { useSubscription } from '@/hooks/useSubscription';
@@ -38,16 +37,6 @@ const features = [
 export default function PaywallScreen() {
   const router = useRouter();
   const { setProStatus } = useSubscription();
-  const { registerPlacement } = usePlacement({
-    onError: (err) => console.error('Paywall Error:', err),
-    onPresent: (info) => console.log('Paywall Presented:', info),
-    onDismiss: (info, result) => {
-      console.log('Paywall Dismissed:', info, 'Result:', result);
-      if (result === 'purchased') {
-        handlePurchaseSuccess();
-      }
-    },
-  });
 
   const handlePurchaseSuccess = async () => {
     await setProStatus(true);
@@ -59,26 +48,21 @@ export default function PaywallScreen() {
   };
 
   const handleUnlockPro = async () => {
-    try {
-      await registerPlacement({
-        placement: 'exam_countdown_pro',
-        feature() {
-          // User already has pro or successfully purchased
-          handlePurchaseSuccess();
-        },
-      });
-    } catch (error) {
-      console.error('[Paywall] Error showing paywall:', error);
-      // For testing: simulate purchase
-      Alert.alert(
-        'Demo Mode',
-        'In production, this would show the Superwall paywall. For now, would you like to enable Pro for testing?',
-        [
-          { text: 'Cancel', style: 'cancel' },
-          { text: 'Enable Pro', onPress: handlePurchaseSuccess },
-        ]
-      );
-    }
+    // TODO: Backend Integration - Implement Superwall paywall integration
+    // For now, show a demo alert
+    Alert.alert(
+      'Demo Mode',
+      'In production, this would show the Superwall paywall. For now, would you like to enable Pro for testing?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Enable Pro', onPress: handlePurchaseSuccess },
+      ]
+    );
+  };
+
+  const handleRestore = () => {
+    // TODO: Backend Integration - Implement restore purchases
+    Alert.alert('Restore Purchases', 'Checking for previous purchases...');
   };
 
   return (
@@ -139,10 +123,7 @@ export default function PaywallScreen() {
 
         <TouchableOpacity
           style={styles.restoreButton}
-          onPress={() => {
-            Alert.alert('Restore Purchases', 'Checking for previous purchases...');
-            // TODO: Backend Integration - Implement restore purchases
-          }}
+          onPress={handleRestore}
           activeOpacity={0.7}
         >
           <Text style={styles.restoreText}>Restore Purchases</Text>

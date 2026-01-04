@@ -1,62 +1,50 @@
 
 import { useState, useEffect, useCallback } from 'react';
-import { useUser } from 'expo-superwall';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PRO_STATUS_KEY = '@pro_status';
 
 export function useSubscription() {
-  const { subscriptionStatus } = useUser();
   const [isPro, setIsPro] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const checkProStatus = useCallback(async () => {
     try {
-      // Check Superwall subscription status
-      const isActive = subscriptionStatus?.status === 'ACTIVE';
-      
-      // Also check local storage (for testing/offline)
-      const localPro = await AsyncStorage.getItem(PRO_STATUS_KEY);
-      
-      const proStatus = isActive || localPro === 'true';
-      setIsPro(proStatus);
-      
-      // TODO: Backend Integration - Call GET /api/user/subscription endpoint here
-      console.log('[useSubscription] TODO: Call backend API to check subscription status');
+      const status = await AsyncStorage.getItem(PRO_STATUS_KEY);
+      setIsPro(status === 'true');
     } catch (error) {
-      console.error('[useSubscription] Error checking pro status:', error);
-      setIsPro(false);
+      console.error('Error checking pro status:', error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-  }, [subscriptionStatus]);
+  }, []);
 
   useEffect(() => {
     checkProStatus();
   }, [checkProStatus]);
 
-  // For testing: manually set pro status
   const setProStatus = async (status: boolean) => {
-    await AsyncStorage.setItem(PRO_STATUS_KEY, status.toString());
-    setIsPro(status);
+    try {
+      await AsyncStorage.setItem(PRO_STATUS_KEY, status.toString());
+      setIsPro(status);
+    } catch (error) {
+      console.error('Error setting pro status:', error);
+    }
   };
 
-  // Get feature limits based on subscription
-  const getExamLimit = () => {
-    return isPro ? Infinity : 1;
-  };
-
+  const examsLimit = isPro ? Infinity : 1;
+  
   const canUseMode = (mode: string) => {
-    if (mode === 'Calm') return true;
-    return isPro;
+    if (isPro) return true;
+    return mode === 'Calm';
   };
 
   return {
     isPro,
-    loading,
-    setProStatus, // For testing
-    getExamLimit,
+    isLoading,
+    examsLimit,
     canUseMode,
-    subscriptionStatus,
+    checkProStatus,
+    setProStatus,
   };
 }
