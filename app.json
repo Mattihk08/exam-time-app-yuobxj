@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Exam Countdown",
+    "slug": "exam-countdown",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/final_quest_240x240.png",
+    "scheme": "examcountdown",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.examcountdown.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/final_quest_240x240.png",
+        "backgroundColor": "#000000"
+      },
+      "package": "com.examcountdown.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/final_quest_240x240.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/final_quest_240x240.png",
+          "color": "#FF453A"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "backendUrl": "https://tydmm2t6nhv4azy8zcjuyb6nft89jyhc.app.specular.dev"
+    }
+  }
+}
