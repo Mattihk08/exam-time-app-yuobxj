@@ -60,12 +60,12 @@ export default function RootLayout() {
   const CustomDarkTheme: Theme = {
     ...DarkTheme,
     colors: {
-      primary: "rgb(255, 69, 58)",
-      background: "rgb(0, 0, 0)",
-      card: "rgb(28, 28, 30)",
-      text: "rgb(255, 255, 255)",
-      border: "rgb(44, 44, 46)",
-      notification: "rgb(255, 69, 58)",
+      primary: "rgb(96, 165, 250)", // Light blue - #60A5FA
+      background: "rgb(15, 23, 42)", // Dark background - #0F172A
+      card: "rgb(30, 41, 59)", // Card background - #1E293B
+      text: "rgb(241, 245, 249)", // Light text - #F1F5F9
+      border: "rgb(51, 65, 85)", // Border - #334155
+      notification: "rgb(96, 165, 250)", // Light blue - #60A5FA
     },
   };
 
@@ -86,8 +86,8 @@ export default function RootLayout() {
                 options={{
                   headerShown: true,
                   title: "Exam Details",
-                  headerStyle: { backgroundColor: '#000000' },
-                  headerTintColor: '#FFFFFF',
+                  headerStyle: { backgroundColor: '#0F172A' },
+                  headerTintColor: '#60A5FA',
                 }}
               />
               <Stack.Screen
@@ -96,8 +96,8 @@ export default function RootLayout() {
                   presentation: "modal",
                   headerShown: true,
                   title: "Add Exam",
-                  headerStyle: { backgroundColor: '#000000' },
-                  headerTintColor: '#FFFFFF',
+                  headerStyle: { backgroundColor: '#0F172A' },
+                  headerTintColor: '#60A5FA',
                 }}
               />
               <Stack.Screen
@@ -106,8 +106,8 @@ export default function RootLayout() {
                   presentation: "modal",
                   headerShown: true,
                   title: "Edit Exam",
-                  headerStyle: { backgroundColor: '#000000' },
-                  headerTintColor: '#FFFFFF',
+                  headerStyle: { backgroundColor: '#0F172A' },
+                  headerTintColor: '#60A5FA',
                 }}
               />
               <Stack.Screen
@@ -116,8 +116,8 @@ export default function RootLayout() {
                   presentation: "modal",
                   headerShown: true,
                   title: "Upgrade to Pro",
-                  headerStyle: { backgroundColor: '#000000' },
-                  headerTintColor: '#FFFFFF',
+                  headerStyle: { backgroundColor: '#0F172A' },
+                  headerTintColor: '#60A5FA',
                 }}
               />
             </Stack>

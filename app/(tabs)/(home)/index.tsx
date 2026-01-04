@@ -114,7 +114,7 @@ function HomeScreenContent() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.text} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.primary} />
         }
       >
         <View style={styles.header}>
@@ -168,7 +168,7 @@ function HomeScreenContent() {
           ios_icon_name="plus"
           android_material_icon_name="add"
           size={28}
-          color={colors.text}
+          color={colors.background}
         />
       </TouchableOpacity>
     </View>
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 18,
     fontWeight: '600',
-    color: colors.primary,
+    color: colors.error,
     marginBottom: 20,
     textAlign: 'center',
   },
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   retryButtonText: {
     fontSize: 16,
     fontWeight: '700',
-    color: colors.text,
+    color: colors.background,
   },
   header: {
     marginBottom: 24,
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   proButton: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primary,
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 8,
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0px 4px 16px rgba(255, 69, 58, 0.4)',
+    boxShadow: '0px 4px 16px rgba(96, 165, 250, 0.4)',
     elevation: 8,
   },
 });

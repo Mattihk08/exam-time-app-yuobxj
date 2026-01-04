@@ -178,11 +178,11 @@ export function ExamCard({ exam, isNext, onArchive, onDelete, index }: ExamCardP
 function getModeColor(mode: string) {
   switch (mode) {
     case 'Calm':
-      return { backgroundColor: '#30D15820' };
+      return { backgroundColor: '#10B98120' }; // Green with transparency
     case 'Realistic':
-      return { backgroundColor: '#FFD60A20' };
+      return { backgroundColor: '#F59E0B20' }; // Orange with transparency
     case 'Brutal':
-      return { backgroundColor: '#FF453A20' };
+      return { backgroundColor: '#60A5FA20' }; // Light blue with transparency
     default:
       return { backgroundColor: colors.card };
   }

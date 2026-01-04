@@ -1,4 +1,5 @@
-const tintColorLight = "#0a7ea4";
+
+const tintColorLight = "#60A5FA"; // Light blue
 const tintColorDark = "#fff";
 
 export const zincColors = {
@@ -15,7 +16,7 @@ export const zincColors = {
   950: "#09090b",
 };
 
-export const appleBlue = "#007AFF";
+export const appleBlue = "#60A5FA"; // Changed to light blue
 export const appleRed = "#FF3B30";
 
 export const borderColor = "#A1A1AA80";
@@ -40,16 +41,17 @@ export const Colors = {
 };
 
 export const backgroundColors = [
-  "#fef2f2",
-  "#fee2e2",
-  "#fecaca",
-  "#fca5a5",
-  "#f87171",
-  "#ef4444",
-  "#dc2626",
-  "#b91c1c",
-  "#991b1b",
-  "#7f1d1d",
+  // Light Blue shades (replacing reds)
+  "#eff6ff",
+  "#dbeafe",
+  "#bfdbfe",
+  "#93c5fd",
+  "#60a5fa",
+  "#3b82f6",
+  "#2563eb",
+  "#1d4ed8",
+  "#1e40af",
+  "#1e3a8a",
 
   "#fff7ed",
   "#ffedd5",
