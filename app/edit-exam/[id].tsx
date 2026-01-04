@@ -50,7 +50,7 @@ export default function EditExamScreen() {
     setTime(examDate);
     setLocation(exam.location || '');
     setPressureMode(exam.pressure_mode);
-  }, [exam]);
+  }, [exam, router]);
 
   const handleModeSelect = (mode: PressureMode) => {
     if (!canUseMode(mode)) {

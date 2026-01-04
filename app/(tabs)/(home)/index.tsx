@@ -31,15 +31,14 @@ function HomeScreenContent() {
   const activeExams = getActiveExams();
 
   useEffect(() => {
+    const checkOnboarding = async () => {
+      const completed = await AsyncStorage.getItem(ONBOARDING_KEY);
+      if (!completed) {
+        router.replace('/onboarding');
+      }
+    };
     checkOnboarding();
-  }, []);
-
-  const checkOnboarding = async () => {
-    const completed = await AsyncStorage.getItem(ONBOARDING_KEY);
-    if (!completed) {
-      router.replace('/onboarding');
-    }
-  };
+  }, [router]);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -173,8 +172,6 @@ function HomeScreenContent() {
       </TouchableOpacity>
     </View>
   );
-}
-
 }
 
 export default function HomeScreen() {

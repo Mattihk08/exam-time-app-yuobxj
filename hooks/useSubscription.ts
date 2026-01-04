@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useUser } from 'expo-superwall';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -10,11 +10,7 @@ export function useSubscription() {
   const [isPro, setIsPro] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    checkProStatus();
-  }, [subscriptionStatus]);
-
-  const checkProStatus = async () => {
+  const checkProStatus = useCallback(async () => {
     try {
       // Check Superwall subscription status
       const isActive = subscriptionStatus?.status === 'ACTIVE';
@@ -33,7 +29,11 @@ export function useSubscription() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [subscriptionStatus]);
+
+  useEffect(() => {
+    checkProStatus();
+  }, [checkProStatus]);
 
   // For testing: manually set pro status
   const setProStatus = async (status: boolean) => {

@@ -43,7 +43,7 @@ export default function ExamDetailScreen() {
     const interval = setInterval(updateCountdown, 1000); // Update every second for detail view
 
     return () => clearInterval(interval);
-  }, [exam]);
+  }, [exam, router]);
 
   if (!exam) {
     return (
