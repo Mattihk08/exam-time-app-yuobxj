@@ -1,8 +1,7 @@
-
 {
   "expo": {
-    "name": "Natively",
-    "slug": "Natively",
+    "name": "Exam Time",
+    "slug": "Exam Time",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/natively-dark.png",
@@ -49,7 +48,9 @@
       "typedRoutes": true
     },
     "extra": {
-      "router": {}
+      "router": {},
+      "backendUrl": "https://tydmm2t6nhv4azy8zcjuyb6nft89jyhc.app.specular.dev"
     }
-  }
+  },
+  "scheme": "Exam Time"
 }
